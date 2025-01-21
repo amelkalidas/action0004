@@ -1,0 +1,32 @@
+# lint, test and deploy on push
+# download the repo when triggered
+# install dependency 
+# perform lint , test and deploy script
+# add some echo commands while performing the steps 
+# it could either be a single job or a step itself.
+
+
+name: lint , test and deploy workflow.
+on: push
+jobs:
+    build_project:
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout the project code
+              uses: actions/checkout@v4
+            - name: install dependencies
+              run: |
+                echo "installing dependencies"
+                npm ci
+            - name: lint the code
+              run: |
+                echo "linting the code"
+                npm run lint
+            - name: run test
+              run: 
+                echo "running test"
+                npm run test
+            - name: build the porject
+              run: 
+                echo "building the project"
+                npm run build

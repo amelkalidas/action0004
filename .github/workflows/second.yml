@@ -1,0 +1,18 @@
+# listen to events that looks for "issues" 
+# start the workflow whenever a issue related action happens.
+# output the event details in the shell via echo.
+# {{ use github context }} which is gathered by github to perfom the workflow action.
+
+name: debug workflow
+on: 
+    issues:
+        types: [opened, edited, deleted, transferred, pinned, unpinned, closed, reopened, assigned, unassigned, labeled, unlabeled, locked, unlocked, milestoned, demilestoned]
+jobs:
+    find_events:
+        runs-on: ubuntu-latest
+        steps:
+             - name: print out the event details
+               run: |
+                 echo "issue events are being printed ...................."
+                 echo "event details are ${{toJson(github.event)}}"
+               
