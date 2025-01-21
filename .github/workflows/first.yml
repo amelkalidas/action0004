@@ -9,7 +9,39 @@
 name: lint , test and deploy workflow.
 on: push
 jobs:
+    lint_proj:
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout the project code
+              uses: actions/checkout@v4
+            - name: install dependencies
+              run: |
+                echo "installing dependencies"
+                npm ci
+            - name: lint the code
+              run: |
+                echo "linting the code"
+                npm run lint
+    test_proj:
+        needs: [lint_proj]
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout the project code
+              uses: actions/checkout@v4
+            - name: install dependencies
+              run: |
+                echo "installing dependencies"
+                npm ci
+            - name: lint the code
+              run: |
+                echo "linting the code"
+                npm run lint
+            - name: run test
+              run: 
+                echo "running test"
+                npm run test
     build_project:
+        needs: [test_proj]
         runs-on: ubuntu-latest
         steps:
             - name: checkout the project code
